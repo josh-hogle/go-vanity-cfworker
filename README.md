@@ -61,8 +61,8 @@ In order to set up your vanity "server", you'll need to perform the following st
    - Custom domains can be mapped by entering one each when prompted. If no custom domains are required or if you are done entering custom names, simply leave the entry blank.
    - The setup script can be re-run if changes are required.
 
-2. Once setup has completed, you can populate the `_PREVIEW` KV store in Cloudflare (see [Configuration](#configuration) below) with test values and then run `yarn dev` to test locally.
-3. When you are ready to deploy the worker, simply run `yarn deploy` to publish the settings to Cloudflare.
+2. When you are ready to deploy the worker, simply run `yarn deploy` to publish the settings to Cloudflare.
+3. You can populate the `_PREVIEW` KV store in Cloudflare (see [Configuration](#configuration) below) with test values and then run `yarn dev` to test locally.
 4. Populate the production KV store in Cloudflare with your vanity package names and source configurations (see [Configuration](#configuration) below).
 
 If you wish to make changes to your configuration, you can either re-run the `yarn setup` command or manually edit the `wrangler.toml` file. See the [Cloudflare Wrangler](https://developers.cloudflare.com/workers/wrangler/configuration/) docs for more details.
