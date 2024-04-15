@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "name": "go-vanity-cfworker",
+  "version": "0.1.0",
+  "description": "Cloudflare Workers project to host a Go vanity server for import URLs",
+  "main": "index.js",
+  "scripts": {
+    "setup": "yarn && ./setup.sh",
+    "fmt": "$(yarn bin)/prettier --write '**/*.{js,css,json,md}'",
+    "dev": "$(yarn bin)/wrangler dev",
+    "pub": "$(yarn bin)/wrangler publish",
+    "deploy": "yarn run fmt && yarn run pub"
+  },
+  "license": "MIT",
+  "author": "Josh Hogle",
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "wrangler": "^2.10.0"
+  }
+}
