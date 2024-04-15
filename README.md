@@ -4,15 +4,9 @@
   <p>Go vanity URL import server using Cloudflare Workers</p>
   <hr />
   <br />
-  <a href="#">
-    <img src="https://img.shields.io/badge/stability-alpha-pink?style=for-the-badge" />
-  </a>
-  <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank">
-    <img src="https://img.shields.io/badge/license-MIT-maroon?style=for-the-badge" />
-  </a>
-  <a href="#">
-    <img src="https://img.shields.io/badge/support-community-purple?style=for-the-badge" />
-  </a>
+  <a href="#"><img src="https://img.shields.io/badge/stability-alpha-pink?style=for-the-badge" /></a>
+  <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank"><img src="https://img.shields.io/badge/license-MIT-maroon?style=for-the-badge" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/support-community-purple?style=for-the-badge" /></a>
 </div>
 <br />
 <hr />
