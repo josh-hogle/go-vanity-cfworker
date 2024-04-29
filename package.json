@@ -15,6 +15,6 @@
   "author": "Josh Hogle",
   "devDependencies": {
     "prettier": "^1.18.2",
-    "wrangler": "^2.10.0"
+    "wrangler": "^3.52.0"
   }
 }
