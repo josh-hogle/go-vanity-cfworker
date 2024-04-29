@@ -54,9 +54,15 @@ wrangler login
 echo
 
 # get input from user
+# - account id
 # - name of service
 # - name of KV store
 # - custom domains
+echo -n "Enter the account_id for which the Cloudflare Worker should be created (optional): [] > "
+read account_id
+if [ -z "${account_id}" ]; then
+  account_id=""
+fi
 echo -n "Enter the name of the Cloudflare Worker service to create: [go-vanity-cfworker] > "
 read service_name
 if [ -z "${service_name}" ]; then
@@ -82,6 +88,10 @@ echo
 script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 toml_file="${script_dir}/wrangler.toml"
 echo "name = \"${service_name}\"" >$toml_file
+
+if [[ "${account_id}" != "" ]; then
+  echo "account_id = \"${account_id}\"" >> $toml_file
+fi
 
 # create the KV namespaces
 create_kv_namespace "${service_name}" "${kv_store_name}"
