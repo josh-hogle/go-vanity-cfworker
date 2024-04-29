@@ -47,7 +47,10 @@ echo
 
 # log into Cloudflare
 echo "Logging into Cloudflare"
-wrangler login
+authorized="$(wrangler whoami)"
+if echo "${authorized}" | grep -q "You are not authenticated"; then
+  wrangler login
+fi
 echo
 
 # get input from user
