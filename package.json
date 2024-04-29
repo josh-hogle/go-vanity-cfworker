@@ -8,7 +8,7 @@
     "setup": "yarn && ./setup.sh",
     "fmt": "$(yarn bin)/prettier --write '**/*.{js,css,json,md}'",
     "dev": "$(yarn bin)/wrangler dev",
-    "pub": "$(yarn bin)/wrangler publish",
+    "pub": "$(yarn bin)/wrangler deploy",
     "deploy": "yarn run fmt && yarn run pub"
   },
   "license": "MIT",
