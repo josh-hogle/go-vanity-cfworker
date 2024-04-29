@@ -89,8 +89,10 @@ script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 toml_file="${script_dir}/wrangler.toml"
 echo "name = \"${service_name}\"" >$toml_file
 
-if [[ "${account_id}" != "" ]; then
-  echo "account_id = \"${account_id}\"" >> $toml_file
+account_id_final=""
+if [[ "${account_id}" != "" ]]; then
+  account_id_final="account_id = \"${account_id}\"" 
+  echo "${account_id_final}" >> $toml_file
 fi
 
 # create the KV namespaces
@@ -109,6 +111,7 @@ kv_store_preview_id="${NAMESPACE_ID}"
 echo -n "Generating 'wrangler.toml' file..."
 cat << EOF > "${toml_file}"
 name = "${service_name}"
+${account_id_final}
 main = "./src/index.js"
 compatibility_date = "2023-02-16"
 workers_dev = true
