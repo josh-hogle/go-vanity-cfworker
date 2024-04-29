@@ -7,11 +7,8 @@ function find_namespace {
   local service=$1
   local namespace=$2
 
-  # get a list of namespaces - note that NPM, Yarn, etc. may complain here so we need to
-  # remove the first X number of lines up to the start of the JSON to parse with jq
-  local output="$(wrangler kv:namespace list)"
-  local json_lineno=$(echo "${output}" | grep -wn "\[" | cut -d':' -f1)
-  local json="$(echo "${output}" | tail +${json_lineno})"
+  # get a list of namespaces
+  local json="$(wrangler kv:namespace list)"
   
   # find the namespace ID
   NAMESPACE_ID="$(echo "${json}" | jq -r ".[] | select(.title == \"${service}-${namespace}\") | .id")"
