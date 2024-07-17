@@ -7,11 +7,8 @@ function find_namespace {
   local service=$1
   local namespace=$2
 
-  # get a list of namespaces - note that NPM, Yarn, etc. may complain here so we need to
-  # remove the first X number of lines up to the start of the JSON to parse with jq
-  local output="$(wrangler kv:namespace list)"
-  local json_lineno=$(echo "${output}" | grep -wn "\[" | cut -d':' -f1)
-  local json="$(echo "${output}" | tail +${json_lineno})"
+  # get a list of namespaces
+  local json="$(wrangler kv:namespace list)"
   
   # find the namespace ID
   NAMESPACE_ID="$(echo "${json}" | jq -r ".[] | select(.title == \"${service}-${namespace}\") | .id")"
@@ -50,13 +47,22 @@ echo
 
 # log into Cloudflare
 echo "Logging into Cloudflare"
-wrangler login
+authorized="$(wrangler whoami)"
+if echo "${authorized}" | grep -q "You are not authenticated"; then
+  wrangler login
+fi
 echo
 
 # get input from user
+# - account id
 # - name of service
 # - name of KV store
 # - custom domains
+echo -n "Enter the account_id for which the Cloudflare Worker should be created (optional): [] > "
+read account_id
+if [ -z "${account_id}" ]; then
+  account_id=""
+fi
 echo -n "Enter the name of the Cloudflare Worker service to create: [go-vanity-cfworker] > "
 read service_name
 if [ -z "${service_name}" ]; then
@@ -83,6 +89,12 @@ script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 toml_file="${script_dir}/wrangler.toml"
 echo "name = \"${service_name}\"" >$toml_file
 
+account_id_final=""
+if [[ "${account_id}" != "" ]]; then
+  account_id_final="account_id = \"${account_id}\"" 
+  echo "${account_id_final}" >> $toml_file
+fi
+
 # create the KV namespaces
 create_kv_namespace "${service_name}" "${kv_store_name}"
 if [ $? -ne 0 ]; then
@@ -99,6 +111,7 @@ kv_store_preview_id="${NAMESPACE_ID}"
 echo -n "Generating 'wrangler.toml' file..."
 cat << EOF > "${toml_file}"
 name = "${service_name}"
+${account_id_final}
 main = "./src/index.js"
 compatibility_date = "2023-02-16"
 workers_dev = true

@@ -42,6 +42,7 @@ You will need the following software installed on your system:
 
 In order to set up your vanity "server", you'll need to perform the following steps:
 
+0. In order for wrangler to work you need to autorize it with you cloudflare account. This can be done using the command `yarn exec wrangler login`. 
 1. After cloning the repository, run `yarn setup`. This will install the required Node packages and prepare the Cloudflare Workers KV namespaces for you.
 
    - You can choose any name you'd like for the service.
